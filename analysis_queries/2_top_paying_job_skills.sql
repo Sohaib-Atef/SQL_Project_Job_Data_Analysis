@@ -28,18 +28,24 @@ WITH top_paying_jobs AS (
         job_title_short = 'Data Analyst'
         AND job_location = 'Anywhere'
         AND salary_year_avg IS NOT NULL
+        AND EXTRACT(YEAR FROM job_posted_date) = 2023
     ORDER BY
         salary_year_avg DESC
+    LIMIT 10
 )
-SELECT 
-    top_paying_jobs.*,
-    skills
+SELECT
+    skills_dim.skills,
+    COUNT(skills_job_dim.skill_id) AS skill_count,
+    ROUND(AVG(salary_year_avg), 0) AS avg_salary
 FROM
     top_paying_jobs
 INNER JOIN
     skills_job_dim USING (job_id)
 INNER JOIN
     skills_dim USING (skill_id)
+GROUP BY
+    skills_dim.skills
 ORDER BY
-    salary_year_avg DESC
+    skill_count DESC
 LIMIT 10;
+
