@@ -31,4 +31,4 @@ GROUP BY
     skills
 ORDER BY
     demand_count DESC
-LIMIT 5;
+LIMIT 10;

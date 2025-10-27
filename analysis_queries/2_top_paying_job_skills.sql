@@ -42,4 +42,4 @@ INNER JOIN
     skills_dim USING (skill_id)
 ORDER BY
     salary_year_avg DESC
-LIMIT 10
+LIMIT 10;
